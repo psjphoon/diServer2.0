@@ -8,7 +8,7 @@ import sequenceUtils as su
 import timeSequenceUtils as tsu
 
 def collectStatistics(wordLength, repetitions, wordNumber, errorProb):
-    filename = "longStrings2.txt"
+    filename = "statistics/data/longStrings.txt"
     file = open(filename, "a+")
     for rep in range(repetitions):
         originalSequence = su.randomword(wordLength)
@@ -30,9 +30,9 @@ def collectStatistics(wordLength, repetitions, wordNumber, errorProb):
     file.close()
 
 def main():
-    reps = 10
+    reps = 3
     errorProbs = [0.1]
-    wordLengths = list(50 + i for i in range(700, 1000, 50))
+    wordLengths = list(50 + i for i in range(10, 50, 10)) #range(700, 1000, 50))
     userNumbers = [3]
     for users in userNumbers:
         for errorProb in errorProbs:

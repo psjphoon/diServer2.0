@@ -44,21 +44,22 @@ def plot(xIndex, yIndex, aggregateIndex, data, xLabel = '', yLabel = '', aggrega
     plt.ylabel(yLabel)
 
 def main():
+    '''
     filename = "data/moreThan3Reps.txt" 
     data = dataFromFile(filename)
-    
+    '''
     userNumberIndex = 0
     stringLengthIndex = 1
     errorProbabilityIndex = 2
     timeIndex = 3
     scoreIndex = 4
-
+    '''
     plot(userNumberIndex, timeIndex, errorProbabilityIndex, data, "number of users", "time", "error probability", 1)
     plot(userNumberIndex, timeIndex, stringLengthIndex, data, "number of users", "time", "string length", 2)
     plot(stringLengthIndex, timeIndex, errorProbabilityIndex, data, "length of string", "time", "error probability", 3)
     plot(stringLengthIndex, timeIndex, userNumberIndex, data, "length of string", "time", "number of users", 4)
     plot(userNumberIndex, scoreIndex, errorProbabilityIndex, data, "number of users", "rating of result, normalized by string length", "error probability", 5)
-    
+    '''
     filename2 = "data/longStrings.txt"
     dataTwo = dataFromFile(filename2)
     plot(stringLengthIndex, timeIndex, errorProbabilityIndex, dataTwo, "length of string", "time", "error probability", 6)
