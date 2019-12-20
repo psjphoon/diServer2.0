@@ -7,6 +7,7 @@ import databaseConnection as db
 import clientAPI as client_api
 import adminAPI as admin_api
 
+
 # Create the application instance
 app = Flask(__name__, template_folder="templates")
 
@@ -18,6 +19,7 @@ def find_blueprint(api):
 
 app.register_blueprint(find_blueprint(client_api))
 app.register_blueprint(find_blueprint(admin_api))
+
 
 # Create a URL route in our application for "/"
 # This is purely to see if the server is running, there is currently no website planned

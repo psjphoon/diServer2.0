@@ -2,14 +2,13 @@
 import random
 import string
 import time
-
 import costMatrixDijkstra as dij
 import sequenceUtils as su
 import timeSequenceUtils as tsu
 
-
 def main():    
-
+    
+    '''
     # test with Time
     originalSequence = tsu.randomSequenceWithTime(15, 3)
     numberOfSequences = 3
@@ -31,10 +30,11 @@ def main():
         rating = dij.sequenceRatingWithTime(resultSequence, s)
         print(str(rating))        
     return
-
+    '''
 
     # test without time
     originalSequence = su.randomword(15)
+
     numberOfSequences = 5
     sequences = []
     for _ in range(numberOfSequences):
@@ -44,12 +44,13 @@ def main():
     result = su.extractOriginal(path, sequences)
     print(' ')
     print('original: ' + originalSequence)
+    print('userInputs: ' + str(sequences))
     print('newGuess: ' + result)
     print('new Guess rating: ' + str(dij.sequenceRating(originalSequence, result)))
     print('userInputs and ratings:')
     for s in sequences:
         rating = dij.sequenceRating(result, s)
-        print(s + ": " + str(rating))        
+        print(s + ": " + str(rating))       
     return
 
 

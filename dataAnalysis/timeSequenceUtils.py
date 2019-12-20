@@ -6,6 +6,8 @@ import string
 from collections import Counter
 
 import sequenceUtils as su
+#import dataAnalysis.sequenceUtils as su
+
 
 def printTimeSequence(timeSequence):
     for event in timeSequence:

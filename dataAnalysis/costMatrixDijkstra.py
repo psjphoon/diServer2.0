@@ -113,7 +113,7 @@ def aStarTimeWarpingPathWithTimestamps(eventSequence):
             if tuple(n) not in predecessors:
                 nDist = currentPosition[2] + withTimeDist(currentPosition[1], n, 0)
                 heapq.heappush(nextPosition, (nDist + distHeuristic(n), n, nDist, currentPosition[1]))
-    
+ 
     path = []
     pathPosition = currentPosition[1]
     path.append(pathPosition)
@@ -184,7 +184,7 @@ def timeWarpingPathAStar(localSequences):
             if tuple(n) not in predecessors:
                 nDist = currentPosition[2] + spaceDist(currentPosition[1], n)
                 heapq.heappush(nextPosition, (nDist + distHeuristic(n), n, nDist, currentPosition[1]))
-    
+
     path = []
     pathPosition = currentPosition[1]
     path.append(pathPosition)
@@ -228,5 +228,7 @@ def sequenceRatingWithTime(finalSequence, userSequence):
             cost += timeCost
         lastPosition = position
     # normalize errors 
-    rating = float(cost) / float(len(finalSequence))
+    rating = 1 - (float(cost) / float(len(finalSequence)))
+    if rating < 0:
+        rating = 0
     return rating

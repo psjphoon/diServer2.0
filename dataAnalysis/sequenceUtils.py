@@ -3,11 +3,15 @@ import random
 import re
 import string
 from collections import Counter
-
+import pandas as pd
 
 def randomword(length):
    letters = string.ascii_lowercase
    return ''.join(random.choice(letters) for i in range(length))
+
+def randomstate():
+    states = pd.read_csv('states.txt', header = None)
+    
 
 def insertErrors(errorProbability, sequence):
     i = 0
@@ -68,4 +72,43 @@ def extractOriginal(path, sequences):
             result = result + occuranceNumbers[0][0]
 
         index += blockLength
-    return result
+    return result    
+
+def extractOriginalStates(path, sequences, possibleEvents):
+
+    result = ''
+    spacedSequences = matchSequences(path, sequences)
+    index = 0
+    j = 0
+    while index < len(spacedSequences[0]):
+        # decide on length on block
+        stepLengths = []
+        for s in spacedSequences:
+            nextPosition = re.search(r'[^ ]', s[index:])
+            steps = len(s[index:])
+            if nextPosition != None:
+                steps = nextPosition.span()[0]
+            stepLengths.append(steps)
+        blockLength = Counter(stepLengths).most_common()[0][0] + 1
+        # decide on event
+        events = ''
+
+        # find most frequent entries in block
+        for i in range(index, min(len(spacedSequences[0]), index + blockLength)):
+            for sIndex in range(len(spacedSequences)):
+                if (spacedSequences[sIndex][i] != ' ') and (spacedSequences[sIndex][i] in list(possibleEvents[j].keys())):
+                    events = events + spacedSequences[sIndex][i]
+        occuranceNumbers = Counter(events).most_common()
+        # no clear solution -> star
+        if len(occuranceNumbers) > 1 and occuranceNumbers[0][1] == occuranceNumbers[1][1]:
+            result = result + '*'
+            
+        else:
+            result = result + occuranceNumbers[0][0]
+            states = possibleEvents[j][occuranceNumbers[0][0]][0]
+            j += (states-j)
+
+        index += blockLength
+
+    return result    
+

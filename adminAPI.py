@@ -8,11 +8,24 @@ def register_app():
     # TODO
     return None
 
+@admin_api.route('/gameRegistration', methods=['POST'])
+def register_game():
+    if not request.json:
+        return jsonify({'status' : True, 'message':'Wrong document type'}), 400
+    dbEntry = db.insertGame(request.json)
+    if not dbEntry:
+        return jsonify({'status' : True, 'message':'Game has registered previously'}), 201
+    return jsonify({'status': True, 'message': 'Game insertion successful', 'gameid': str(dbEntry.inserted_id)}), 201
+
 @admin_api.route('/userRegistration', methods=['POST'])
 def register_user():
     # TODO
-    dbEntry = db.insertIntoCollection('users', request.json)
-    return jsonify({'status': True, 'message': 'User insertion successful.', 'userid': str(dbEntry.inserted_id)}), 201
+    if not request.json:
+        return jsonify({'status' : True, 'message':'Wrong document type'}), 400
+    dbEntry = db.insertUsers(request.json)
+    if not dbEntry:
+        return jsonify({'status' : True, 'message':'User has registered previously'}), 201
+    return jsonify({'status': True, 'message': 'User insertion successful', 'userid': str(dbEntry.inserted_id)}), 201
 
 @admin_api.route('/playerRegistration', methods=['POST'])
 def register_player():
@@ -23,11 +36,6 @@ def register_player():
 def register_team():
     # TODO
     return None
-
-@admin_api.route('/gameRegistration', methods=['POST'])
-def register_game():
-    dbEntry = db.insertIntoCollection('competitions', request.json)
-    return jsonify({'status': True, 'message': 'Game insertion successful.', 'gameid': str(dbEntry.inserted_id)}), 201
 
 @admin_api.route('/seasonRegistration', methods=['POST'])
 def register_season():
