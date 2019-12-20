@@ -1,2 +1,3 @@
-# diServer
-server to serve as backend for sports annotation apps, using mongoDB
+# diServer2.0
+
+A modified version of diServer by Juliane Waack (https://github.com/julkw/diServer)
